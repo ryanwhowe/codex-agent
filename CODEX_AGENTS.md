@@ -57,9 +57,10 @@
 - Use any comparison target, revision range, or scope specified by the user.
 - For a working-tree review with no other range specified, include relevant staged changes, unstaged changes, and untracked files relative to `HEAD`, regardless of staging state.
 - For a branch or pull-request review or description, determine the intended base in this order: a base specified by the user, pull-request metadata, the remote repository's default branch, or an unambiguous repository convention.
+- If the intended base cannot be determined reliably, ask one concise clarifying question before resolving refs or producing the review or description.
 - Do not treat the current feature branch's configured upstream as the pull-request base merely because it is configured as an upstream. It commonly represents the remote copy of the same feature branch.
-- When reviewing committed branch changes, compute the merge base between `HEAD` and the intended base, then inspect changes from that merge base through `HEAD`.
-- If the intended base cannot be determined reliably, ask one concise clarifying question before producing the review or description.
+- After determining the intended base, resolve that base without assuming a branch name. If it is a local branch with a configured upstream that is ahead of the local ref, use the upstream ref; otherwise use the local ref.
+- When reviewing committed branch changes, compute the merge base between `HEAD` and the resolved base ref, then inspect changes from that merge base through `HEAD`.
 - Include relevant staged, unstaged, and untracked changes in a branch or pull-request review only when they are within the requested scope and appear intended for that same pull request.
 - Do not warn about or report changes being split between staged and unstaged states unless the user explicitly asks about staging. If asked, discuss staging state directly.
 - Exclude clearly separable unrelated changes from the requested review or description. If unrelated changes are present and the requested scope cannot be separated safely, stop and ask the user for clarification.
