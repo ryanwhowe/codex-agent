@@ -33,13 +33,6 @@
 - If the user asks to stop refining before the proposal is described, stop asking optional questions, prepare the proposal from the available information, and request authorization. Do not treat the request to stop refining by itself as implementation authorization.
 - If an approved action requires a distinct safety confirmation, ask for that confirmation as its own single question immediately before the action.
 
-### Implementation scope
-
-- After authorization, make only the explicitly requested or approved changes.
-- Work directly required to implement and validate the approved proposal is within scope when the proposal disclosed it. Do not treat that work as an expansion merely because it affects several files named or reasonably encompassed by the proposal.
-- Scope expansion includes unrelated cleanup, optional refactoring, adding or changing dependencies, architectural changes, altering behavior beyond the approved outcome, or modifying components not included or reasonably encompassed by the proposal.
-- If an unanticipated scope expansion becomes necessary, stop before making it, explain why it is needed, and ask for separate authorization. Continue asking only one question per turn.
-
 ## General implementation authorization
 
 - Treat requests to explain, investigate, diagnose, debug, review, or provide feedback as read-only unless the user also explicitly requests implementation.
@@ -48,14 +41,25 @@
 - Questions such as `why is this broken?`, `can this be fixed?`, `what would you change?`, and `is this approach correct?` authorize investigation or explanation only.
 - A problem statement such as `this does not work`, prior discussion of a possible change, or a previous attempted change does not by itself authorize implementation.
 - If implementation intent remains ambiguous, investigate as needed, explain the diagnosis or proposed change, and ask for authorization before editing.
-- When implementation is authorized outside a `work with me` workflow, make only the explicitly requested changes and do not expand their scope without separate authorization.
+
+## Implementation scope
+
+- Apply these scope rules to every authorized implementation, including `work with me` workflows.
+- The authorized scope includes the requested or approved outcome and the code, configuration, tests, documentation, and validation directly required to implement it correctly.
+- For a `work with me` workflow, disclose the expected implementation and validation work in the proposal whenever it can be identified beforehand.
+- Necessary mechanical changes are within scope when they directly support the authorized outcome and do not introduce additional behavior, dependencies, or architectural decisions.
+- Scope expansion includes unrelated cleanup, optional refactoring, adding or changing dependencies, architectural changes, behavior beyond the authorized outcome, or changes to unrelated components.
+- If an unanticipated scope expansion becomes necessary, stop before making it, explain why it is needed, and request separate authorization.
 
 ## PhpStorm commit workflow
 
 - The user manages staging and unstaging through PhpStorm's commit mechanism. Do not stage or unstage files unless the user explicitly requests it.
 - Use any comparison target, revision range, or scope specified by the user.
 - For a working-tree review with no other range specified, include relevant staged changes, unstaged changes, and untracked files relative to `HEAD`, regardless of staging state.
-- For a branch or pull-request review or description, include committed branch changes against the intended base branch. Also include relevant staged, unstaged, and untracked changes only when they are within the requested scope and appear intended for the same pull request.
-- When the intended base branch is not specified, infer it from repository conventions or configured branch and remote information. If it cannot be determined reliably, ask the user one concise clarifying question before producing the review or description.
+- For a branch or pull-request review or description, determine the intended base in this order: a base specified by the user, pull-request metadata, the remote repository's default branch, or an unambiguous repository convention.
+- Do not treat the current feature branch's configured upstream as the pull-request base merely because it is configured as an upstream. It commonly represents the remote copy of the same feature branch.
+- When reviewing committed branch changes, compute the merge base between `HEAD` and the intended base, then inspect changes from that merge base through `HEAD`.
+- If the intended base cannot be determined reliably, ask one concise clarifying question before producing the review or description.
+- Include relevant staged, unstaged, and untracked changes in a branch or pull-request review only when they are within the requested scope and appear intended for that same pull request.
 - Do not warn about or report changes being split between staged and unstaged states unless the user explicitly asks about staging. If asked, discuss staging state directly.
 - Exclude clearly separable unrelated changes from the requested review or description. If unrelated changes are present and the requested scope cannot be separated safely, stop and ask the user for clarification.
