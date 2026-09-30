@@ -30,6 +30,12 @@
 - Scope expansion includes unrelated cleanup, optional refactoring, unrequested dependency changes, architectural changes, behavior beyond the authorized outcome, or changes to unrelated components.
 - If an unanticipated scope expansion becomes necessary, stop before making it, explain why it is needed, and request separate authorization.
 
+## GitHub pull request creation
+
+- Before drafting, updating, or creating a GitHub pull request, read and follow `~/.codex/PULL_REQUEST_GUIDE.md` when it exists.
+- Treat the pull request guide as conditional task guidance. Repository-local instructions and pull request templates take precedence when they are more specific.
+- Reading or drafting a pull request does not authorize creating or updating one on GitHub. Apply the general implementation authorization rules to the external action.
+
 ## Validation and completion
 
 - After an authorized change, run the smallest relevant check that meaningfully verifies the result.

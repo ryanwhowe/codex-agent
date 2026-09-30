@@ -1,6 +1,6 @@
 # codex-agent
 
-This repository contains shared instructions and a reusable skill for Codex. `CODEX_AGENTS.md` provides global preferences through a symlink at `~/.codex/AGENTS.md`. The `work-with-me` skill is loaded only when you explicitly invoke it.
+This repository contains shared instructions, a pull request guide, and a reusable skill for Codex. `CODEX_AGENTS.md` provides global preferences through a symlink at `~/.codex/AGENTS.md`. `PULL_REQUEST_GUIDE.md` provides conditional guidance for GitHub pull requests. The `work-with-me` skill is loaded only when you explicitly invoke it.
 
 ## Setup
 
@@ -34,6 +34,16 @@ ln -s "<repository-path>/skills/work-with-me" "$HOME/.agents/skills/work-with-me
 
 If `~/.agents/skills/work-with-me` already exists, skip the `ln` command and decide how to integrate it yourself. Do not use `ln -sf`. The skill is configured for explicit invocation only; saying `work with me` in ordinary text does not activate it. Invoke `$work-with-me` in Codex CLI or the IDE extension, or select the skill in the ChatGPT desktop app.
 
+### 4. Link the pull request guide
+
+Link the guide so the global instructions can load it when you work on a GitHub pull request:
+
+```sh
+ln -s "<repository-path>/PULL_REQUEST_GUIDE.md" "$HOME/.codex/PULL_REQUEST_GUIDE.md"
+```
+
+If `~/.codex/PULL_REQUEST_GUIDE.md` already exists, keep it and decide how to integrate this guide. Do not use `ln -sf`.
+
 ## Verify the setup
 
 If you created the global-instructions symlink, confirm that it points to the repository copy:
@@ -44,6 +54,13 @@ readlink "$HOME/.codex/AGENTS.md"
 ```
 
 The second command should print `<repository-path>/CODEX_AGENTS.md` (or the equivalent path you used).
+
+If you created the pull request guide symlink, confirm that it points to the repository copy:
+
+```sh
+test -L "$HOME/.codex/PULL_REQUEST_GUIDE.md"
+readlink "$HOME/.codex/PULL_REQUEST_GUIDE.md"
+```
 
 If you created the skill symlink, confirm that it points to the repository's skill directory:
 
@@ -56,7 +73,7 @@ Start a new Codex session. Ask it to summarize its global instructions, then che
 
 ## Update the shared instructions
 
-Both symlinks point directly to the repository. To retrieve changes committed by others:
+The symlinks point directly to the repository. To retrieve changes committed by others:
 
 ```sh
 cd "<repository-path>"
@@ -73,6 +90,10 @@ If you created these symlinks, remove each one only while it still points to thi
 if [ -L "$HOME/.codex/AGENTS.md" ] &&
    [ "$(readlink "$HOME/.codex/AGENTS.md")" = "<repository-path>/CODEX_AGENTS.md" ]; then
   rm "$HOME/.codex/AGENTS.md"
+fi
+if [ -L "$HOME/.codex/PULL_REQUEST_GUIDE.md" ] &&
+   [ "$(readlink "$HOME/.codex/PULL_REQUEST_GUIDE.md")" = "<repository-path>/PULL_REQUEST_GUIDE.md" ]; then
+  rm "$HOME/.codex/PULL_REQUEST_GUIDE.md"
 fi
 if [ -L "$HOME/.agents/skills/work-with-me" ] &&
    [ "$(readlink "$HOME/.agents/skills/work-with-me")" = "<repository-path>/skills/work-with-me" ]; then
