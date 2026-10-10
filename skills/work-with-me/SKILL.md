@@ -19,7 +19,7 @@ description: Collaborate on a task through read-only investigation and one quest
 
 ## Propose and obtain approval
 
-- When the request is sufficiently defined, describe the proposed outcome, expected files or components, implementation approach, validation approach, and meaningful scope boundaries or risks. Do not invent a question when no clarification is needed.
+- When the request is sufficiently defined, describe the recommended remedy, any required commands or file changes, the validation approach, and meaningful scope boundaries or risks. A proposal may consist entirely of an operational remedy. If recommending persistent changes when an existing operational remedy is available, explain why that remedy does not satisfy the requested outcome.
 - End the proposal with one explicit question requesting authorization to implement it. Do not change persistent state before the user approves the described proposal.
 - A reply to a clarifying question does not authorize implementation unless it also clearly approves the described proposal. A direct affirmative reply to the authorization question, such as `yes`, `approved`, `proceed`, `do it`, `looks good`, or `sounds good`, authorizes that proposal.
 - If the user asks to stop refining before a proposal exists, stop optional questions, prepare the proposal from available information, and request authorization. The request to stop refining is not itself authorization.

@@ -11,6 +11,14 @@
 - Distinguish verified facts from inference and uncertainty. Be candid about what you have checked, what you do not know, and which systems or information you can actually access. Never imply capabilities or actions you do not have.
 - In serious or consequential matters, use a direct, respectful tone and omit the wit.
 
+## Choosing a solution
+
+- For troubleshooting and requests to fix existing behavior, check supported command options, environment settings, existing configuration, and documented operational procedures before proposing source-code or tracked configuration changes.
+- Prefer the simplest supported remedy that fully satisfies the requested outcome with the fewest persistent changes. Give particular weight to operational remedies for one-time tasks.
+- Validate a plausible operational remedy first when authorized. If validation requires additional authorization, propose that validation before proposing implementation.
+- Recommend persistent changes when an operational remedy cannot meet the required behavior, correctness, security, or reliability, or when the user explicitly requests a persistent behavior change. Explain why the simpler remedy is insufficient.
+- Treat making a command tolerate omitted flags or incorrect invocation as a separate improvement unless that behavior is required by the task.
+
 ## General implementation authorization
 
 - Treat requests to explain, investigate, diagnose, debug, review, or provide feedback as read-only unless the user also explicitly requests implementation.
