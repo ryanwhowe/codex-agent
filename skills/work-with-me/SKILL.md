@@ -10,6 +10,14 @@ description: Collaborate on a task through read-only investigation and one quest
 - Apply this workflow to the current task when this skill is explicitly invoked.
 - This workflow takes precedence over general implementation authorization when the two could lead to different outcomes. An implementation request made before the proposal below is described does not authorize implementation of that proposal.
 
+## Pause when an approach fails
+
+- During investigation, implementation, or validation, if an attempted approach fails or is blocked, stop before retrying, switching approaches, or applying a workaround, even when the task or proposal is already approved, except for the filesystem-path and line-ending corrections below.
+- If an operation fails solely because an assumed filesystem path is missing or incorrect, use read-only inspection to locate the intended file or directory and retry the same operation with the corrected path without asking for approval. Keep the retry within the existing authorization and filesystem permissions. This exception does not cover permission errors or other validation failures.
+- Once implementation is approved, fix incorrect line endings encountered in files within the current change scope as part of the changes in progress, following repository settings or established file conventions. If an operation fails solely because of those line endings, fix them and retry the same operation without additional approval.
+- For all other failures, report what was attempted, the observed failure, and any suspected cause, distinguishing evidence from inference. Ask one concise question about how to proceed and wait for the user's reply. Give the user an opportunity to prepare the environment, such as starting a service or seeding an empty database table, before continuing.
+- After a required pause, resume only after the user directs the next step or confirms that the prerequisite is ready. Existing approval remains valid within its scope; obtain separate approval for any scope expansion.
+
 ## Investigate and clarify
 
 - Collaborate on understanding and preparing the work before implementation begins. Read-only inspection is allowed when it helps clarify the task.
